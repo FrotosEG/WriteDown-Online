@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi", "WriteDownOnlineApi\WriteDownOnlineApi.csproj", "{C7C71660-B777-420B-A194-67DD66362330}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80E3B20C-1919-4B64-A2F2-A94F615D2912} = {80E3B20C-1919-4B64-A2F2-A94F615D2912}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi.Domain", "WriteDownOnlineApi.Domain\WriteDownOnlineApi.Domain.csproj", "{AF18670F-089F-4699-ABAA-5BA33D3370CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi.Infra", "WriteDownOnlineApi.Infra\WriteDownOnlineApi.Infra.csproj", "{30E959D9-90EC-4761-B141-D661EA46AC05}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi.Infra.CrossCutting", "WriteDownOnlineApi.Infra.CrossCutting\WriteDownOnlineApi.Infra.CrossCutting.csproj", "{80E3B20C-1919-4B64-A2F2-A94F615D2912}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi.Infra.CrossCutting.Http", "WriteDownOnlineApi.Infra.CrossCutting.Http\WriteDownOnlineApi.Infra.CrossCutting.Http.csproj", "{4A157DDD-8C8A-474C-9184-30A966111D03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi.Service", "WriteDownOnlineApi.Service\WriteDownOnlineApi.Service.csproj", "{181143CB-113E-4C57-8E80-6F806AD53B95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7C71660-B777-420B-A194-67DD66362330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C71660-B777-420B-A194-67DD66362330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C71660-B777-420B-A194-67DD66362330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C71660-B777-420B-A194-67DD66362330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF18670F-089F-4699-ABAA-5BA33D3370CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF18670F-089F-4699-ABAA-5BA33D3370CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF18670F-089F-4699-ABAA-5BA33D3370CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF18670F-089F-4699-ABAA-5BA33D3370CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30E959D9-90EC-4761-B141-D661EA46AC05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30E959D9-90EC-4761-B141-D661EA46AC05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30E959D9-90EC-4761-B141-D661EA46AC05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30E959D9-90EC-4761-B141-D661EA46AC05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E3B20C-1919-4B64-A2F2-A94F615D2912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E3B20C-1919-4B64-A2F2-A94F615D2912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E3B20C-1919-4B64-A2F2-A94F615D2912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E3B20C-1919-4B64-A2F2-A94F615D2912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A157DDD-8C8A-474C-9184-30A966111D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A157DDD-8C8A-474C-9184-30A966111D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A157DDD-8C8A-474C-9184-30A966111D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A157DDD-8C8A-474C-9184-30A966111D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181143CB-113E-4C57-8E80-6F806AD53B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181143CB-113E-4C57-8E80-6F806AD53B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181143CB-113E-4C57-8E80-6F806AD53B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181143CB-113E-4C57-8E80-6F806AD53B95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE41823D-3112-47FD-8597-C79257712D9E}
+	EndGlobalSection
+EndGlobal
