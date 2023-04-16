@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WriteDownOnlineApi.Infra.CrossCutting;
-using WriteDownOnlineApi.Service.Handlers.Usuario;
+using WriteDownOnlineApi.Service.Handlers.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +15,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddMediatR(typeof(CriarUsuarioHandler).Assembly);
+builder.Services.AddMediatR(typeof(CreateUserHandler).Assembly);
+
+string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<DbContext>(
-    o => o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options => options.UseMySql(mysqlConnection, ServerVersion.AutoDetect(mysqlConnection)));
 
 var app = builder.Build();
 

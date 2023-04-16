@@ -5,19 +5,17 @@ using WriteDownOnlineApi.Infra.Repositories.Core;
 
 namespace WriteDownOnlineApi.Infra.Repositories
 {
-    public class UsersRepository : Repository<UsersEntity, long>, IUsersRepository
+    public class NoteRepository : Repository<NoteEntity, long>, INoteRepository
     {
         private readonly IUnitOfWork<DbContext> _unitOfWork;
-        public UsersRepository(DbContext context, IUnitOfWork<DbContext> unitOfWork) : base(context)
+        public NoteRepository(DbContext context, IUnitOfWork<DbContext> unitOfWork) : base(context)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public UsersEntity FindUserByEmail(string email)
+        public List<NoteEntity> FindUserNotes(long userId)
         {
-            return _dbSet.FirstOrDefault(d => d.Email == email);
+            return _dbSet.Where(d => d.UsersCreated.Id == userId).ToList();
         }
-
-
     }
 }

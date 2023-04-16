@@ -1,4 +1,5 @@
 ﻿using WriteDownOnlineApi.Domain.Entities.Core;
+using WriteDownOnlineApi.Domain.Enums;
 
 namespace WriteDownOnlineApi.Domain.Entities
 {
@@ -6,8 +7,8 @@ namespace WriteDownOnlineApi.Domain.Entities
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string IdStatus { get; set; }
-        public virtual EnumStatus Status { get; set; }
+        public short IdStatus { get; set; }
+        public virtual StatusEntity Status { get; set; }
         public long CreatedBy { get; set; }
         public virtual UsersEntity UsersCreated { get; set; }
         public long UpdatedBy { get; set; }

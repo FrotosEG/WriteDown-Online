@@ -5,19 +5,12 @@ using WriteDownOnlineApi.Infra.Repositories.Core;
 
 namespace WriteDownOnlineApi.Infra.Repositories
 {
-    public class UsersRepository : Repository<UsersEntity, long>, IUsersRepository
+    public class StatusRepository : Repository<StatusEntity, short>, IStatusRepository
     {
         private readonly IUnitOfWork<DbContext> _unitOfWork;
-        public UsersRepository(DbContext context, IUnitOfWork<DbContext> unitOfWork) : base(context)
+        public StatusRepository(DbContext context, IUnitOfWork<DbContext> unitOfWork) : base(context)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public UsersEntity FindUserByEmail(string email)
-        {
-            return _dbSet.FirstOrDefault(d => d.Email == email);
-        }
-
-
     }
 }

@@ -3,8 +3,7 @@ using WriteDownOnlineApi.Domain.Interface.Core;
 
 namespace WriteDownOnlineApi.Domain.Interface
 {
-    public interface IUsersRepository : IRepository<UsersEntity, long>
+    public interface IRelationUsersVaultRepository : IRepository<RelationUsersVaultEntity, long>
     {
-        UsersEntity FindUserByEmail(string email);
     }
 }

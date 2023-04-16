@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Data;
-using System.Net.NetworkInformation;
 using WriteDownOnlineApi.Domain.Entities;
 
 namespace WriteDownOnlineApi.Infra.Mappings
@@ -24,8 +21,6 @@ namespace WriteDownOnlineApi.Infra.Mappings
             builder.Property(x => x.StatusUpdateDate).HasColumnName("StatusUpdateDate").HasColumnType("timestamp");
 
             builder.HasOne(d => d.Status).WithMany().HasForeignKey(e => e.IdStatus);
-
-
         }
     }
 }

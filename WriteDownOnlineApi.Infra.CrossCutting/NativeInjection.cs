@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Domain.Interface.Core;
+using WriteDownOnlineApi.Infra.Repositories;
 using WriteDownOnlineApi.Infra.Repositories.Core;
 
 namespace WriteDownOnlineApi.Infra.CrossCutting
@@ -10,7 +12,13 @@ namespace WriteDownOnlineApi.Infra.CrossCutting
         public static IServiceCollection InjetarDependenciasExtensions(this IServiceCollection services)
         {
             //Injetando repositórios
-            //services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<INoteRepository, NoteRepository>();
+            services.AddScoped<INotesRelationRepository, NotesRelationRepository>();
+            services.AddScoped<IRelationUsersVaultRepository, RelationUsersVaultRepository>();
+            services.AddScoped<IStatusRepository, StatusRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IVaultRepositpory, VaultRepository>();
+
             //Adicionando Banco de dados
             services.AddScoped<IUnitOfWork<DbContext>, UnitOfWork<DbContext>>();
             services.AddDbContextFactory<DbContext>();
