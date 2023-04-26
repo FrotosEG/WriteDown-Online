@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using System.Security.Cryptography;
-using System.Text;
 using WriteDownOnlineApi.Domain.Dtos;
 using WriteDownOnlineApi.Domain.Entities;
 using WriteDownOnlineApi.Domain.Enums;
@@ -52,7 +50,7 @@ namespace WriteDownOnlineApi.Service.Handlers.User
                 }
                 //verify if email already exists in DB
                 var existingEmail = _usersRepository.FindUserByEmail(request.Email);
-                if(existingEmail != null)
+                if (existingEmail != null)
                 {
                     response.MensagemSucesso = "Email já cadastrado.";
                     return Task.FromResult(response);
@@ -75,17 +73,15 @@ namespace WriteDownOnlineApi.Service.Handlers.User
                 response.StatusCode = 200;
                 response.Sucesso = true;
                 response.MensagemSucesso = "Usuário criado com sucesso.";
-
-                return Task.FromResult(response);
             }
             catch (Exception ex)
             {
-
                 response.StatusCode = 500;
                 response.Sucesso = false;
                 response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
-                return Task.FromResult(response);
             }
+
+            return Task.FromResult(response);
         }
     }
 }

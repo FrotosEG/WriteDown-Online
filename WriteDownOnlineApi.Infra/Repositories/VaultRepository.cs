@@ -5,7 +5,7 @@ using WriteDownOnlineApi.Infra.Repositories.Core;
 
 namespace WriteDownOnlineApi.Infra.Repositories
 {
-    public class VaultRepository : Repository<VaultEntity, long>, IVaultRepositpory
+    public class VaultRepository : Repository<VaultEntity, long>, IVaultRepository
     {
         private readonly IUnitOfWork<DbContext> _unitOfWork;
         public VaultRepository(DbContext context, IUnitOfWork<DbContext> unitOfWork) : base(context)

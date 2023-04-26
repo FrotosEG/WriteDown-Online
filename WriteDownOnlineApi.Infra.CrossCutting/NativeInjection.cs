@@ -17,7 +17,7 @@ namespace WriteDownOnlineApi.Infra.CrossCutting
             services.AddScoped<IRelationUsersVaultRepository, RelationUsersVaultRepository>();
             services.AddScoped<IStatusRepository, StatusRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
-            services.AddScoped<IVaultRepositpory, VaultRepository>();
+            services.AddScoped<IVaultRepository, VaultRepository>();
 
             //Adicionando Banco de dados
             services.AddScoped<IUnitOfWork<DbContext>, UnitOfWork<DbContext>>();

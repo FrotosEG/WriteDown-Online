@@ -17,7 +17,6 @@ namespace WriteDownOnlineApi.Domain.Entities
         public virtual UsersEntity UsersStatus { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
-        public DateTime MyProperty { get; set; }
         public DateTime StatusUpdateDate { get; set; }
     }
 }

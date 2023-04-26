@@ -30,7 +30,7 @@ namespace WriteDownOnlineApi.Service.Handlers.Note
                     PreviewText = "",
                     Description = request.Description,
                     Tags = request.Tags,
-                    Title= request.Title,
+                    Title = request.Title,
                 };
 
                 _noteRepository.Insert(note);
@@ -39,16 +39,14 @@ namespace WriteDownOnlineApi.Service.Handlers.Note
                 response.StatusCode = 200;
                 response.Sucesso = true;
                 response.MensagemSucesso = "Nota criada com sucesso.";
-
-                return Task.FromResult(response);
             }
             catch (Exception ex)
             {
                 response.StatusCode = 500;
                 response.Sucesso = false;
                 response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
-                return Task.FromResult(response);
             }
+            return Task.FromResult(response);
         }
     }
 }

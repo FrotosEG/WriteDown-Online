@@ -38,16 +38,15 @@ namespace WriteDownOnlineApi.Service.Handlers.User
                 response.UpdateDate = user.UpdateDate;
                 response.StatusUpdateDate = user.StatusUpdateDate;
                 response.IdStatus = user.IdStatus;
-
-                return Task.FromResult(response);
             }
             catch (Exception ex)
             {
                 response.StatusCode = 500;
                 response.Sucesso = false;
                 response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
-                return Task.FromResult(response);
             }
+
+            return Task.FromResult(response);
         }
     }
 }

@@ -40,17 +40,15 @@ namespace WriteDownOnlineApi.Service.Handlers.User
                 response.StatusCode = 200;
                 response.Sucesso = true;
                 response.MensagemSucesso = "Usuário atualizado com sucesso";
-
-                return Task.FromResult(response);
-
             }
             catch (Exception ex)
             {
                 response.StatusCode = 500;
                 response.Sucesso = false;
                 response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
-                return Task.FromResult(response);
             }
+
+            return Task.FromResult(response);
         }
     }
 }
