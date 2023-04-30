@@ -12,5 +12,10 @@ namespace WriteDownOnlineApi.Infra.Repositories
         {
             _unitOfWork = unitOfWork;
         }
+
+        public List<NotesRelationEntity> GetNotesRelationByIdNote(long noteId)
+        {
+            return _dbSet.Where(d => d.NoteId == noteId).ToList();
+        }
     }
 }

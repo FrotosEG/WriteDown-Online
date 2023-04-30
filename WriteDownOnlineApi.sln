@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi.Infra.Cr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriteDownOnlineApi.Service", "WriteDownOnlineApi.Service\WriteDownOnlineApi.Service.csproj", "{181143CB-113E-4C57-8E80-6F806AD53B95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteDownOnlineApi.Util", "WriteDownOnlineApi.Util\WriteDownOnlineApi.Util.csproj", "{837F5F51-F70D-4784-8A07-68040AA4683E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{181143CB-113E-4C57-8E80-6F806AD53B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{181143CB-113E-4C57-8E80-6F806AD53B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{181143CB-113E-4C57-8E80-6F806AD53B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{837F5F51-F70D-4784-8A07-68040AA4683E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{837F5F51-F70D-4784-8A07-68040AA4683E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{837F5F51-F70D-4784-8A07-68040AA4683E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{837F5F51-F70D-4784-8A07-68040AA4683E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

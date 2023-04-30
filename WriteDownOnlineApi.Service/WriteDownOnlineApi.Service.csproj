@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WriteDownOnlineApi.Domain\WriteDownOnlineApi.Domain.csproj" />
+    <ProjectReference Include="..\WriteDownOnlineApi.Util\WriteDownOnlineApi.Util.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,5 +5,6 @@ namespace WriteDownOnlineApi.Domain.Interface
 {
     public interface INotesRelationRepository : IRepository<NotesRelationEntity, long>
     {
+        List<NotesRelationEntity> GetNotesRelationByIdNote(long noteId);
     }
 }
