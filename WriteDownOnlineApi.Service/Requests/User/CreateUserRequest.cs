@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
 
 namespace WriteDownOnlineApi.Service.Requests.User
 {
-    public class CreateUserRequest : IRequest<BaseResponse>
+    public class CreateUserRequest : IRequest<IOperationResultBase>
     {
         public string Name { get; set; }
         public string Email { get; set; }

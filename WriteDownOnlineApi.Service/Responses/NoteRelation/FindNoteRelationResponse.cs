@@ -1,8 +1,6 @@
-﻿using WriteDownOnlineApi.Service.Responses.Core;
-
-namespace WriteDownOnlineApi.Service.Responses.NoteRelation
+﻿namespace WriteDownOnlineApi.Service.Responses.NoteRelation
 {
-    public class FindNoteRelationResponse : BaseResponse
+    public class FindNoteRelationResponse
     {
         public long IdNoteFrom { get; set; }
         public long IdNoteTo { get; set; }

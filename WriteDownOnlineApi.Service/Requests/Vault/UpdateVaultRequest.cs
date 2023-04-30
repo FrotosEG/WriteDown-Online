@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using WriteDownOnlineApi.Domain.Entities;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
 
 namespace WriteDownOnlineApi.Service.Requests.Vault
 {
-    public class UpdateVaultRequest : IRequest<BaseResponse>
+    public class UpdateVaultRequest : IRequest<IOperationResultBase>
     {
         public long IdVault { get; set; }
         public string Title { get; set; }

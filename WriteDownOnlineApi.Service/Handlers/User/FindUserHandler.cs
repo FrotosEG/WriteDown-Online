@@ -2,10 +2,12 @@
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.User;
 using WriteDownOnlineApi.Service.Responses.User;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.User
 {
-    public class FindUserHandler : IRequestHandler<FindUserRequest, FindUserResponse>
+    public class FindUserHandler : IRequestHandler<FindUserRequest, IOperationResult<FindUserResponse>>
     {
         private readonly IUsersRepository _usersRepository;
         public FindUserHandler(IUsersRepository usersRepository)
@@ -13,23 +15,15 @@ namespace WriteDownOnlineApi.Service.Handlers.User
             _usersRepository = usersRepository;
         }
 
-        public Task<FindUserResponse> Handle(FindUserRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResult<FindUserResponse>> Handle(FindUserRequest request, CancellationToken cancellationToken)
         {
             var response = new FindUserResponse();
             try
             {
                 var user = _usersRepository.GetById(request.UserId);
                 if (user == null)
-                {
-                    response.StatusCode = 404;
-                    response.Sucesso = false;
-                    response.MensagemSucesso = $"Usuário não encontrado.";
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResult<FindUserResponse>.CreateNotFound().AddMessage("Nota não encontrada."));
 
-                response.StatusCode = 200;
-                response.Sucesso = true;
-                response.MensagemSucesso = "Usuário encontrado com sucesso";
                 response.Name = user.Name;
                 response.Email = user.Email;
                 response.Fone = user.Fone;
@@ -38,15 +32,14 @@ namespace WriteDownOnlineApi.Service.Handlers.User
                 response.UpdateDate = user.UpdateDate;
                 response.StatusUpdateDate = user.StatusUpdateDate;
                 response.IdStatus = user.IdStatus;
+
+                return Task.FromResult(OperationResult<FindUserResponse>.CreateSuccess(response));
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
-            }
+                return Task.FromResult(OperationResult<FindUserResponse>.CreateInternalError(ex).AddMessage("Ocorreu um erro ao buscar o usuário."));
 
-            return Task.FromResult(response);
+            }
         }
     }
 }

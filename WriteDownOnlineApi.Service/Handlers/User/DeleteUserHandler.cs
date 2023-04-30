@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.User;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.User
 {
-    public class DeleteUserHandler : IRequestHandler<DeleteUserRequest, BaseResponse>
+    public class DeleteUserHandler : IRequestHandler<DeleteUserRequest, IOperationResultBase>
     {
         private readonly IUsersRepository _usersRepository;
         public DeleteUserHandler(IUsersRepository usersRepository)
@@ -13,34 +14,23 @@ namespace WriteDownOnlineApi.Service.Handlers.User
             _usersRepository = usersRepository;
         }
 
-        public Task<BaseResponse> Handle(DeleteUserRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResultBase> Handle(DeleteUserRequest request, CancellationToken cancellationToken)
         {
-            var response = new BaseResponse();
             try
             {
                 var user = _usersRepository.GetById(request.UserId);
                 if (user == null)
-                {
-                    response.StatusCode = 404;
-                    response.Sucesso = false;
-                    response.MensagemSucesso = $"Usuário não encontrado.";
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResultBase.CreateNotFound().AddMessage("Usuário não encontrado."));
 
                 _usersRepository.Delete(request.UserId);
                 _usersRepository.SaveChanges();
-
-                response.StatusCode = 200;
-                response.Sucesso = true;
-                response.MensagemSucesso = "Usuário deletado com sucesso.";
+                return Task.FromResult(OperationResultBase.CreateSuccess());
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
+                return Task.FromResult(OperationResultBase.CreateInternalError(ex).AddMessage("Ocorreu um erro ao buscar o usuário."));
+
             }
-            return Task.FromResult(response);
         }
     }
 }

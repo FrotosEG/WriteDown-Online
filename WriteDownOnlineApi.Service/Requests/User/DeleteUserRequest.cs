@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
 
 namespace WriteDownOnlineApi.Service.Requests.User
 {
-    public class DeleteUserRequest : IRequest<BaseResponse>
+    public class DeleteUserRequest : IRequest<IOperationResultBase>
     {
         public long UserId { get; set; }
     }

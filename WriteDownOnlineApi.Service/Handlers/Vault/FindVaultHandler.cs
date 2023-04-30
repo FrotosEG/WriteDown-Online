@@ -2,10 +2,12 @@
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.Vault;
 using WriteDownOnlineApi.Service.Responses.Vault;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Vault
 {
-    public class FindVaultHandler : IRequestHandler<FindVaultRequest, FindVaultReponse>
+    public class FindVaultHandler : IRequestHandler<FindVaultRequest, IOperationResult<FindVaultReponse>>
     {
         private readonly IVaultRepository _vaultRepository;
         public FindVaultHandler(IVaultRepository vaultRepositpory)
@@ -13,32 +15,22 @@ namespace WriteDownOnlineApi.Service.Handlers.Vault
             _vaultRepository = vaultRepositpory;
         }
 
-        public Task<FindVaultReponse> Handle(FindVaultRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResult<FindVaultReponse>> Handle(FindVaultRequest request, CancellationToken cancellationToken)
         {
-            var response = new FindVaultReponse();
             try
             {
                 var vault = _vaultRepository.GetById(request.IdVault);
                 if (vault == null)
-                {
-                    response.StatusCode = 404;
-                    response.MensagemSucesso = "Vault não encontrado.";
-                    response.Sucesso = false;
-                    return Task.FromResult(response);
-                }
-                response = new FindVaultReponse(vault);
-                response.StatusCode = 200;
-                response.MensagemSucesso = "Vault encontrado com sucesso.";
-                response.Sucesso = true;
+                    return Task.FromResult(OperationResult<FindVaultReponse>.CreateNotFound().AddMessage("Vault não encontrado."));
 
+                var response = new FindVaultReponse(vault);
+
+                return Task.FromResult(OperationResult<FindVaultReponse>.CreateSuccess(response));
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
+                return Task.FromResult(OperationResult<FindVaultReponse>.CreateInternalError(ex).AddMessage("Ocorreu um erro ao tentar buscar o vault."));
             }
-            return Task.FromResult(response);
         }
     }
 }

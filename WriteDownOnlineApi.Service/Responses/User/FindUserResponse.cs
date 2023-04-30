@@ -1,8 +1,6 @@
-﻿using WriteDownOnlineApi.Service.Responses.Core;
-
-namespace WriteDownOnlineApi.Service.Responses.User
+﻿namespace WriteDownOnlineApi.Service.Responses.User
 {
-    public class FindUserResponse : BaseResponse
+    public class FindUserResponse
     {
         public string Name { get; set; }
         public string Email { get; set; }

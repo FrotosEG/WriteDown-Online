@@ -3,11 +3,12 @@ using WriteDownOnlineApi.Domain.Entities;
 using WriteDownOnlineApi.Domain.Enums;
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.Vault;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Vault
 {
-    public class CreateVaultHandler : IRequestHandler<CreateVaultRequest, BaseResponse>
+    public class CreateVaultHandler : IRequestHandler<CreateVaultRequest, IOperationResultBase>
     {
         private readonly IVaultRepository _vaultRepository;
         private readonly IUsersRepository _usersRepository;
@@ -17,27 +18,17 @@ namespace WriteDownOnlineApi.Service.Handlers.Vault
             _usersRepository = usersRepository;
         }
 
-        public Task<BaseResponse> Handle(CreateVaultRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResultBase> Handle(CreateVaultRequest request, CancellationToken cancellationToken)
         {
-            var response = new BaseResponse();
             try
             {
+
                 if (string.IsNullOrEmpty(request.Title))
-                {
-                    response.StatusCode = 400;
-                    response.MensagemSucesso = "É necessário um título para a criação do Vault.";
-                    response.Sucesso = false;
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResultBase.CreateInvalidInput().AddMessage("Titulo do vault não pode ser vazio."));
 
                 var user = _usersRepository.GetById(request.CreatedBy);
                 if (user == null)
-                {
-                    response.StatusCode = 400;
-                    response.MensagemSucesso = "O usuário não existe.";
-                    response.Sucesso = false;
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResultBase.CreateInvalidInput().AddMessage("Titulo do vault não pode ser vazio."));
 
                 var vault = new VaultEntity()
                 {
@@ -51,18 +42,12 @@ namespace WriteDownOnlineApi.Service.Handlers.Vault
                 _vaultRepository.Insert(vault);
                 _vaultRepository.SaveChanges();
 
-                response.StatusCode = 200;
-                response.MensagemSucesso = "Vault encontrado com sucesso.";
-                response.Sucesso = true;
-
+                return Task.FromResult(OperationResultBase.CreateSuccess().AddMessage("Vault criado com sucesso."));
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
+                return Task.FromResult(OperationResultBase.CreateInternalError(ex).AddMessage("Ocorreu um erro ao criar o vault."));
             }
-            return Task.FromResult(response);
         }
     }
 }

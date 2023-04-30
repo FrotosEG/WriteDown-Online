@@ -2,10 +2,12 @@
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.Note;
 using WriteDownOnlineApi.Service.Responses.Note;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Note
 {
-    public class FindUserNotesHandler : IRequestHandler<FindUserNotesRequest, FindUserNotesResponse>
+    public class FindUserNotesHandler : IRequestHandler<FindUserNotesRequest, IOperationResult<FindUserNotesResponse>>
     {
         private readonly INoteRepository _noteRepository;
         public FindUserNotesHandler(INoteRepository noteRepository)
@@ -13,23 +15,18 @@ namespace WriteDownOnlineApi.Service.Handlers.Note
             _noteRepository = noteRepository;
         }
 
-        public Task<FindUserNotesResponse> Handle(FindUserNotesRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResult<FindUserNotesResponse>> Handle(FindUserNotesRequest request, CancellationToken cancellationToken)
         {
             var response = new FindUserNotesResponse();
             try
             {
                 response.Notes = _noteRepository.FindUserNotes(request.UserId);
-                response.Sucesso = true;
-                response.StatusCode = 200;
+                return Task.FromResult(OperationResult<FindUserNotesResponse>.CreateSuccess(response));
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
+                return Task.FromResult(OperationResult<FindUserNotesResponse>.CreateInternalError(ex).AddMessage("Ocorreu um erro ao buscar as notas."));
             }
-            return Task.FromResult(response);
-
         }
     }
 }

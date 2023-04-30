@@ -3,10 +3,12 @@ using WriteDownOnlineApi.Domain.Dtos;
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.User;
 using WriteDownOnlineApi.Service.Responses.User;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Usuario
 {
-    public class LoginUserHandler : IRequestHandler<LoginUserRequest, LoginUserResponse>
+    public class LoginUserHandler : IRequestHandler<LoginUserRequest, IOperationResult<LoginUserResponse>>
     {
         private readonly IUsersRepository _usersRepository;
         public LoginUserHandler(IUsersRepository usersRepository)
@@ -14,57 +16,38 @@ namespace WriteDownOnlineApi.Service.Handlers.Usuario
             _usersRepository = usersRepository;
         }
 
-        public Task<LoginUserResponse> Handle(LoginUserRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResult<LoginUserResponse>> Handle(LoginUserRequest request, CancellationToken cancellationToken)
         {
             var response = new LoginUserResponse();
             try
             {
-                response.StatusCode = 400;
-                response.Sucesso = false;
 
                 if (String.IsNullOrEmpty(request.Password))
-                {
-                    response.MensagemSucesso = "Por favor informe uma senha.";
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResult<LoginUserResponse>.CreateInvalidInput().AddMessage("Senha não pode estar vazia."));
 
                 if (String.IsNullOrEmpty(request.Email))
-                {
-                    response.MensagemSucesso = "Por favor informe uma email.";
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResult<LoginUserResponse>.CreateInvalidInput().AddMessage("Email não pode estar vazia."));
 
                 var login = _usersRepository.FindUserByEmail(request.Email);
                 if (login == null)
-                {
-                    response.StatusCode = 404;
-                    response.MensagemSucesso = "Email ou senha incorretos.";
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResult<LoginUserResponse>.CreateNotFound().AddMessage("Email ou senha incorretos. Tente novamente."));
 
                 var authorize = PasswordHasher.Verify(request.Password, login.Password);
                 if (!authorize)
-                {
-                    response.StatusCode = 404;
-                    response.MensagemSucesso = "Email ou senha incorretos.";
-                    return Task.FromResult(response);
-                }
+                    return Task.FromResult(OperationResult<LoginUserResponse>.CreateInvalidInput().AddMessage("Email ou senha incorretos. Tente novamente."));
 
                 response.Email = login.Email;
                 response.Name = login.Name;
                 response.Fone = login.Fone;
                 response.UserId = login.Id;
-                response.StatusCode = 200;
-                response.Sucesso = true;
-                response.MensagemSucesso = "Usuário logado com sucesso.";
+
+                return Task.FromResult(OperationResult<LoginUserResponse>.CreateSuccess(response));
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
+                return Task.FromResult(OperationResult<LoginUserResponse>.CreateInternalError(ex).AddMessage("Ocorreu um erro ao realizar o login. Tente novamente mais tarde."));
+
             }
-            return Task.FromResult(response);
         }
     }
 }

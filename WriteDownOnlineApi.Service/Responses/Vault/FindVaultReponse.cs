@@ -1,9 +1,8 @@
 ﻿using WriteDownOnlineApi.Domain.Entities;
-using WriteDownOnlineApi.Service.Responses.Core;
 
 namespace WriteDownOnlineApi.Service.Responses.Vault
 {
-    public class FindVaultReponse : BaseResponse
+    public class FindVaultReponse
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -17,7 +16,7 @@ namespace WriteDownOnlineApi.Service.Responses.Vault
 
         public FindVaultReponse() { }
 
-        public FindVaultReponse(VaultEntity vault) 
+        public FindVaultReponse(VaultEntity vault)
         {
             Title = vault.Title;
             Description = vault.Description;

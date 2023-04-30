@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using WriteDownOnlineApi.Service.Requests.Note;
 using WriteDownOnlineApi.Service.Requests.NoteRelation;
 
 namespace WriteDownOnlineApi.Controllers

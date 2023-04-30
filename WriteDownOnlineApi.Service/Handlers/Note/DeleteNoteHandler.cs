@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.Note;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Note
 {
-    internal class DeleteNoteHandler : IRequestHandler<DeleteNoteRequest, BaseResponse>
+    internal class DeleteNoteHandler : IRequestHandler<DeleteNoteRequest, IOperationResultBase>
     {
         private readonly INoteRepository _noteRepository;
         public DeleteNoteHandler(INoteRepository noteRepository)
@@ -13,34 +14,28 @@ namespace WriteDownOnlineApi.Service.Handlers.Note
             _noteRepository = noteRepository;
         }
 
-        public Task<BaseResponse> Handle(DeleteNoteRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResultBase> Handle(DeleteNoteRequest request, CancellationToken cancellationToken)
         {
-            var response = new BaseResponse();
             try
             {
                 var note = _noteRepository.GetById(request.NoteId);
                 if (note == null)
                 {
-                    response.StatusCode = 404;
-                    response.Sucesso = false;
-                    response.MensagemSucesso = $"Nota não encontrada.";
-                    return Task.FromResult(response);
+                    return Task.FromResult(OperationResultBase.CreateNotFound().AddMessage("Nota não encontrada."));
+
                 }
 
                 _noteRepository.Delete(note.Id);
                 _noteRepository.SaveChanges();
 
-                response.Sucesso = true;
-                response.StatusCode = 200;
-                response.MensagemSucesso = "Nota deletada com sucesso.";
+
+                return Task.FromResult(OperationResultBase.CreateSuccess().AddMessage("Nota criada com sucesso."));
+
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
+                return Task.FromResult(OperationResultBase.CreateInternalError(ex).AddMessage("Ocorreu um erro ao deletar a nota."));
             }
-            return Task.FromResult(response);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.NoteRelation;
-using WriteDownOnlineApi.Service.Responses.Core;
 using WriteDownOnlineApi.Service.Responses.NoteRelation;
 using WriteDownOnlineApi.Util.Interfaces.Results;
 using WriteDownOnlineApi.Util.Models;
@@ -22,8 +21,6 @@ namespace WriteDownOnlineApi.Service.Handlers.NoteRelation
             try
             {
                 var notes = _notesRelationRepository.GetNotesRelationByIdNote(request.NoteId);
-
-
                 return Task.FromResult(OperationResult<List<FindNoteRelationResponse>>.CreateSuccess(response));
             }
             catch (Exception ex)
@@ -31,7 +28,6 @@ namespace WriteDownOnlineApi.Service.Handlers.NoteRelation
                 return Task.FromResult(OperationResult<List<FindNoteRelationResponse>>.CreateInternalError(ex));
 
             }
-
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
 
 namespace WriteDownOnlineApi.Service.Requests.Note
 {
-    public class CreateNoteRequest : IRequest<BaseResponse>
+    public class CreateNoteRequest : IRequest<IOperationResultBase>
     {
         public long UserId { get; set; }
         public long IdVault { get; set; }

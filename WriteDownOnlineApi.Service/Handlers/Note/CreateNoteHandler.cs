@@ -3,11 +3,12 @@ using WriteDownOnlineApi.Domain.Entities;
 using WriteDownOnlineApi.Domain.Enums;
 using WriteDownOnlineApi.Domain.Interface;
 using WriteDownOnlineApi.Service.Requests.Note;
-using WriteDownOnlineApi.Service.Responses.Core;
+using WriteDownOnlineApi.Util.Interfaces.Results;
+using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Note
 {
-    public class CreateNoteHandler : IRequestHandler<CreateNoteRequest, BaseResponse>
+    public class CreateNoteHandler : IRequestHandler<CreateNoteRequest, IOperationResultBase>
     {
         private readonly INoteRepository _noteRepository;
         public CreateNoteHandler(INoteRepository noteRepository)
@@ -15,9 +16,8 @@ namespace WriteDownOnlineApi.Service.Handlers.Note
             _noteRepository = noteRepository;
         }
 
-        public Task<BaseResponse> Handle(CreateNoteRequest request, CancellationToken cancellationToken)
+        public Task<IOperationResultBase> Handle(CreateNoteRequest request, CancellationToken cancellationToken)
         {
-            var response = new BaseResponse();
             try
             {
                 var note = new NoteEntity()
@@ -36,17 +36,12 @@ namespace WriteDownOnlineApi.Service.Handlers.Note
                 _noteRepository.Insert(note);
                 _noteRepository.SaveChanges();
 
-                response.StatusCode = 200;
-                response.Sucesso = true;
-                response.MensagemSucesso = "Nota criada com sucesso.";
+                return Task.FromResult(OperationResultBase.CreateSuccess().AddMessage("Nota criada com sucesso."));
             }
             catch (Exception ex)
             {
-                response.StatusCode = 500;
-                response.Sucesso = false;
-                response.MensagemSucesso = $"Exception: {ex.Message}, Inner: {ex.InnerException?.Message}.";
+                return Task.FromResult(OperationResultBase.CreateInternalError(ex).AddMessage("Ocorreu um erro ao criar a nota."));
             }
-            return Task.FromResult(response);
         }
     }
 }

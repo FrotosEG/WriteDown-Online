@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using WriteDownOnlineApi.Util.Interfaces.Results;
 
 namespace WriteDownOnlineApi.Service.Requests.NoteRelation
 {
-    public class DeleteNoteRelationRequest
+    public class DeleteNoteRelationRequest : IRequest<IOperationResultBase>
     {
+        public long NoteRelationId { get; set; }
     }
 }
