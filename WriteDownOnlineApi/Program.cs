@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 using WriteDownOnlineApi.Infra.CrossCutting;
 using WriteDownOnlineApi.Service.Handlers.User;
@@ -22,7 +23,19 @@ string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConne
 builder.Services.AddDbContext<DbContext>(
     options => options.UseMySql(mysqlConnection, ServerVersion.AutoDetect(mysqlConnection)));
 
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "HealthCheck", Version = "v1.0" });
+    c.EnableAnnotations();
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
