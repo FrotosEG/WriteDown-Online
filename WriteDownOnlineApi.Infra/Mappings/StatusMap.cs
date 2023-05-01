@@ -9,7 +9,7 @@ namespace WriteDownOnlineApi.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<StatusEntity> builder)
         {
-            builder.ToTable("Status");
+            builder.ToTable("EnumStatus");
             builder.HasKey(x => x.Id);
         }
     }

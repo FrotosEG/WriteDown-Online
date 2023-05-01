@@ -6,6 +6,5 @@ namespace WriteDownOnlineApi.Service.Requests.Enum
 {
     public class FindEnumStatusRequest : IRequest<IOperationResult<FindEnumStatusResponse>>
     {
-
     }
 }
