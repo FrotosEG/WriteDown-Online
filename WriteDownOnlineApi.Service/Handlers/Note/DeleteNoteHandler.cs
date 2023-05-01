@@ -6,7 +6,7 @@ using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Note
 {
-    internal class DeleteNoteHandler : IRequestHandler<DeleteNoteRequest, IOperationResultBase>
+    public class DeleteNoteHandler : IRequestHandler<DeleteNoteRequest, IOperationResultBase>
     {
         private readonly INoteRepository _noteRepository;
         public DeleteNoteHandler(INoteRepository noteRepository)

@@ -6,7 +6,7 @@ using WriteDownOnlineApi.Util.Models;
 
 namespace WriteDownOnlineApi.Service.Handlers.Note
 {
-    internal class UpdateNoteHandler : IRequestHandler<UpdateNoteRequest, IOperationResultBase>
+    public class UpdateNoteHandler : IRequestHandler<UpdateNoteRequest, IOperationResultBase>
     {
         private readonly INoteRepository _noteRepository;
         public UpdateNoteHandler(INoteRepository noteRepository)
