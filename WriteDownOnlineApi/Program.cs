@@ -18,7 +18,7 @@ builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(typeof(CreateUserHandler).Assembly);
 
 string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
-
+Console.WriteLine(mysqlConnection);
 builder.Services.AddDbContext<DbContext>(
     options => options.UseMySql(mysqlConnection, ServerVersion.AutoDetect(mysqlConnection)));
 
