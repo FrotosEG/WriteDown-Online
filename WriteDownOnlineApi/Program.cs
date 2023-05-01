@@ -19,6 +19,7 @@ builder.Services.AddMediatR(typeof(CreateUserHandler).Assembly);
 
 string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 Console.Out.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + mysqlConnection + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+Console.Error.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + mysqlConnection + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 //Console.Out("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + mysqlConnection + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 builder.Services.AddDbContext<DbContext>(
     options => options.UseMySql(mysqlConnection, ServerVersion.AutoDetect(mysqlConnection)));
