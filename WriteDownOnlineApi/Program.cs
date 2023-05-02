@@ -17,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(typeof(CreateUserHandler).Assembly);
 
-string mysqlConnection = builder.Configuration.GetConnectionString("ProdConnection");
+string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DbContext>(
     options => options.UseMySql(mysqlConnection, ServerVersion.AutoDetect(mysqlConnection)));
 
