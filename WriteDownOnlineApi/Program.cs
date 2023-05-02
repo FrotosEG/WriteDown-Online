@@ -17,10 +17,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(typeof(CreateUserHandler).Assembly);
 
-string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
-string test = "server=containers-us-west-87.railway.app;port=6759;database=railway;user=root;password=kjesSp24aqrP7h8i7Uyh;Persist Security Info=False; Connect Timeout=300";
+string mysqlConnection = builder.Configuration.GetConnectionString("ProdConnection");
 builder.Services.AddDbContext<DbContext>(
-    options => options.UseMySql(test, ServerVersion.AutoDetect(test)));
+    options => options.UseMySql(mysqlConnection, ServerVersion.AutoDetect(mysqlConnection)));
 
 var app = builder.Build();
 
