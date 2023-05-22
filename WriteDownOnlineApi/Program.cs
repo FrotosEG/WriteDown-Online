@@ -17,6 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(typeof(CreateUserHandler).Assembly);
 
+//TODO: Achar uma maneira de fazer a conexão com o DB pelo railway sem passar a connection string direto no prgram
 //string mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 var connection = "server=containers-us-west-87.railway.app;port=6759;database=railway;user=root;password=kjesSp24aqrP7h8i7Uyh;Persist Security Info=False; Connect Timeout=300";
 builder.Services.AddDbContext<DbContext>(
