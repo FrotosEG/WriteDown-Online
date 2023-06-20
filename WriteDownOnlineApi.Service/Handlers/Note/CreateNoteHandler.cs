@@ -24,7 +24,7 @@ namespace WriteDownOnlineApi.Service.Handlers.Note
                 {
                     IdVault = request.IdVault,
                     IdStatus = (short)EnumStatus.Created,
-                    Content = "",
+                    Content = request.Content,
                     CreateDate = DateTime.Now,
                     CreatedBy = request.UserId,
                     PreviewText = "",
